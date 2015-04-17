@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/jquery/dist/jquery.js"></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('input').addEventListener('change', function (event) {
+          console.log(this.value);
+
+          $.post('/downloads', { url: this.value }, function (data) {
+            console.log(data);
+          });
+        });
+      });
+
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <input type="text"/>
+  </body>
+</html>

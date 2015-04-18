@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+var uuid = require('uuid');
 var cheerio = require('cheerio');
 
 /* GET home page. */
@@ -17,14 +18,21 @@ router.post('/downloads', function(req, res, next) {
       console.log(body); // Show the HTML for the Google homepage.
       var $ = parseHTML(body);
 
+
+      var images = [];
       $('img').each(function () {
-        console.log($(this).attr('src'));
+        images.push({
+          src: $(this).attr('src'),
+          uuid: uuid.v4()
+        });
       });
+
+      res.status(200).json({message: 'OK', images: images});
     }
   });
 
 
-  res.status(200).json({message: 'OK'});
+
 });
 
 function parseHTML(str) {
